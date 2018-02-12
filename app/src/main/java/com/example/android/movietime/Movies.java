@@ -6,17 +6,22 @@ package com.example.android.movietime;
 
 public class Movies {
 
-    String movieName;
-    String imageURL;
-
-    public Movies(String movietitle, String moviePosterURL) {
-        this.movieName = movietitle;
-        this.imageURL = moviePosterURL;
-    }
-    public String getMovieName(){
+    public String getMovieName() {
         return movieName;
     }
-    public String getImageURL(){
+
+    public String getImageURL() {
         return imageURL;
     }
+
+    private String movieName;
+    private String imageURL;
+
+    public Movies(String movieName, String imageURL) {
+        this.movieName = movieName;
+        this.imageURL = imageURL;
+    }
+
+
+
 }

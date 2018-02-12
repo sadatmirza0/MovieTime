@@ -1,5 +1,6 @@
 package com.example.android.movietime;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import org.json.JSONArray;
@@ -24,35 +26,38 @@ import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView mRecyclerView;
+    private RecyclerView recyclerView;
 
-    private MoviesAdapter mMoviesAdapter;
+    private RecyclerView.Adapter adapter;
+
+    private List<Movies> listOfMovies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        recyclerView = (RecyclerView) findViewById(R.id.RecyclerView_main);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        new MoviesAsyncTask.execute();
+        listOfMovies = new ArrayList<>();
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.RecyclerView_main);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
-
-        mRecyclerView.setLayoutManager(linearLayoutManager);
-
-        mMoviesAdapter = new MoviesAdapter();
-
-        mRecyclerView.setAdapter(mMoviesAdapter);
-
+        loadRecyclerViewData();
     }
+
+    private void loadRecyclerViewData(){
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loooading....");
+        progressDialog.show();
+    }
+
+
 
     private static class MoviesAsyncTask extends AsyncTask<Void, Void, ArrayList<String>> {
 
         URL urlPopular = new URL("https://api.themoviedb.org/3/movie/popular?api_key=e6119fc0e6963d6ee2300a97c6d1cf22");
 
         //URL urlTopRated = new URL("https://api.themoviedb.org/3/movie/top_rated?api_key=e6119fc0e6963d6ee2300a97c6d1cf22");
-
 
         String response;
 
