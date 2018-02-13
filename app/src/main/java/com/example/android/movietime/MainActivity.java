@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         progressDialog.show();
     }
 
+/*    http://androidcss.com/android/fetch-json-data-android/*/
 
 
     private static class MoviesAsyncTask extends AsyncTask<Void, Void, ArrayList<String>> {
